@@ -25,7 +25,7 @@ void World::update(double dt){
             }
         // turret
         turret.update(dt);
-        if (turret.canFire()){
+        if (ping.detected &&turret.canFire()){
             bullets.push_back(turret.fire());
             std::cout << std::fixed << std::setprecision(2);
             std::cout << "Fire! Bullet angle: ,"<< ping.angleDegrees << std::endl;
@@ -37,11 +37,6 @@ void World::update(double dt){
 
 void World::checkCollisions(){
     for (auto& bullet:bullets){
-            if (bullet.isActive()){
-                double d = (bullet.getPosition() - threat.getPosition()).module();
-                    // Descomenta esto para ver a qué distancia pasan:
-                std::cout << "Distancia bala-amenaza: " << d << std::endl;
-            }
             if (bullet.isActive() && checkCollision(bullet, threat)) {
             std::cout << "IMPACT: THREAT DESTROYED" << std::endl;
             bullet.deactivated();

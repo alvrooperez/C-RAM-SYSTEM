@@ -3,7 +3,7 @@
 
 namespace Constants {
     inline constexpr double GRAVITY = 9.81;        // m/s^2
-    inline constexpr double RADAR_RANGE = 10000.0; // meters
+    inline constexpr double RADAR_RANGE = 8000.0; // meters 10k
     
     inline constexpr double DRONE_SPEED = 60.0;    // m/s (~216 km/h)
     inline constexpr double MISSILE_SPEED = 300.0; // m/s (Mach 0.9)

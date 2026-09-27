@@ -1,5 +1,6 @@
 #pragma once
 #include "World.hpp"
+#include "raylib.h"
 
 class Renderer {
     int screenWidth;
@@ -11,4 +12,5 @@ public:
 
     bool shouldClose() const;
     void render(const World& world);
+    ::Vector2 toScreen(Vec2 worldPos) const;
 };

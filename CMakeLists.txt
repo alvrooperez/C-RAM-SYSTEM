@@ -5,7 +5,7 @@ project(SistemaCram LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 1. Descargar raylib
+# 1. Descargar e integrar raylib
 include(FetchContent)
 FetchContent_Declare(
     raylib
@@ -14,19 +14,25 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
-# 2. Rutas de cabeceras
-include_directories(include)
+# 2. Rutas de cabeceras (incluyendo subcarpetas modulares)
+include_directories(
+    include
+    include/core
+    include/entities
+    include/systems
+    include/graphics
+)
 
-# 3. Fuentes
+# 3. Fuentes organizadas por modulos
 set(SOURCES
     src/main.cpp
-    src/Threat.cpp
-    src/Entity.cpp
-    src/Radar.cpp
-    src/Turret.cpp
-    src/Bullet.cpp
-    src/World.cpp
-    src/Renderer.cpp
+    src/entities/Entity.cpp
+    src/entities/Threat.cpp
+    src/entities/Bullet.cpp
+    src/systems/Radar.cpp
+    src/systems/Turret.cpp
+    src/systems/World.cpp
+    src/graphics/Renderer.cpp
 )
 
 add_executable(SistemaCram ${SOURCES})
