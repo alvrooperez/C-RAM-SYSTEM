@@ -9,7 +9,7 @@ int main() {
     Renderer renderer(900, 900);
 
     const double dt = 0.016; // 60 Hz aprox. para coincidir con la pantalla
-    const double timeScale = 4.0;
+    const double timeScale = 10.0;
     while (!renderer.shouldClose()) {
         // Si el objetivo sigue vivo, avanzamos la física
         if (world.isRunning()) {
