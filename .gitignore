@@ -1,0 +1,20 @@
+# Archivos de build y temporales
+build/
+bin/
+out/
+.ninja_deps
+.ninja_log
+
+# IDEs y editores
+.vscode/
+.vs/
+*.user
+*.suo
+.idea/
+
+# Binarios de Windows
+*.exe
+*.obj
+*.o
+*.dll
+*.pdb
