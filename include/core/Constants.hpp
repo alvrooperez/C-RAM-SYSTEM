@@ -2,6 +2,8 @@
 #include "Vec2.hpp"
 
 namespace Constants {
+    inline constexpr int TIME_SCALE = 5;
+
     inline constexpr double GRAVITY = 9.81;        // m/s^2
     inline constexpr double RADAR_RANGE = 8000.0; // meters 10k
     
@@ -13,7 +15,8 @@ namespace Constants {
     inline constexpr double INTERCEPTOR_VMAX = 700.0; // m/s (~Mach 2)
     inline constexpr double PROXIMITY_RADIUS = 25.0;  
     inline constexpr Vec2 INTERCEPTOR_SIZE {3.0, 0.5};
-    inline constexpr double FIRE_RATE = 0.1; 
+    inline constexpr double FIRE_RATE = 1; 
+    inline constexpr Vec2 THREAT_SIZE {20.0,5.0};
 
     // Limits
     inline constexpr double Y_MAX = 10000.0;
@@ -22,6 +25,8 @@ namespace Constants {
     inline constexpr double X_MIN = 0.0;
 
     //Waves
+    inline constexpr int WAVE_MIN_COUNT = 5;
+    inline constexpr int WAVE_MAX_COUNT = 10;
     inline constexpr double SPAWN_X_MIN = 1000.0;
     inline constexpr double SPAWN_X_MAX = 4000.0;
     inline constexpr double SPAWN_Y_MIN = 1000.0;

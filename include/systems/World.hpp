@@ -12,6 +12,9 @@ class World {
     std::vector<Bullet> bullets;
     bool running {true};
 
+    int totalSpawned {0};
+    int totalDestroyed {0};
+
 public:
     World();
     // Getters
@@ -21,9 +24,13 @@ public:
     const std::vector<Bullet>& getBullets() const { return bullets; }
 
     bool isRunning() const { return running && !getThreats().empty(); }
+    int getTotalSpawned() const {return totalSpawned;};
+    int getTotalDestroyed() const {return totalDestroyed;};
+
     void update (double dt);
     void checkCollisions();
     void fire(RadarPing ping, double dt);
+
     void cleanup();
     void spawnWave();
 

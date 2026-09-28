@@ -9,13 +9,13 @@
 
 
 
+
 World::World()
         //: threat({0.0, 3000.0}, {100.0, 0.0}, {1.0, 0.0}, {10.0, 20.0}) 
         {
         bullets.reserve(100);
         threats.reserve(20);
-        threats.emplace_back(Vec2{0.0, 5000.0}, Vec2{100.0, 0.0}, Vec2{0.0, 0.0}, Vec2{10.0, 20.0});
-        threats.emplace_back(Vec2{0.0, 2000.0}, Vec2{120.0, 40.0}, Vec2{0.0, 0.0}, Vec2{10.0, 20.0});
+        spawnWave();
     
 }
 
@@ -57,6 +57,7 @@ void World::checkCollisions(){
                 std::cout << "IMPACT: THREAT DESTROYED" << std::endl;
                 bullet.deactivated();
                 threat.deactivated();
+                totalDestroyed ++;
                 //running=false;
                 }
         }
@@ -95,18 +96,27 @@ void World::cleanup() {
 }
 
 void World::spawnWave(){
-    int count=random(5,10)
-    
-    for (int i=0;i<count;i++){
-        x=random (1000, 4000)
-        y=random(100,9000)
-        y_t=random(3000,7000)
+    int count = MathUtils::getRandomInt(Constants::WAVE_MIN_COUNT, Constants::WAVE_MAX_COUNT);
 
-        //calculate speedvector
-        speed=random(50,300)
-        v= (dt)/|dt|
-        vf=speed*v
+    for (int i = 0; i < count; i++) {
+        // Initial Position
+        double x = MathUtils::getRandom(Constants::SPAWN_X_MIN, Constants::SPAWN_X_MAX);
+        double y = MathUtils::getRandom(Constants::SPAWN_Y_MIN, Constants::SPAWN_Y_MAX);
+        Vec2 startPos{ x, y };
 
-        threats.emplace_back(
+        // Target Position
+        double targetY = MathUtils::getRandom(Constants::TARGET_Y_MIN, Constants::TARGET_Y_MAX);
+        Vec2 targetPos{ Constants::X_MAX, targetY };
+
+        // Speed and direction
+        double speed = MathUtils::getRandom(Constants::THREAT_MIN_SPEED, Constants::THREAT_MAX_SPEED);
+        Vec2 direction = (targetPos - startPos).normalized();
+        Vec2 velocity = direction * speed;
+
+        // threat Creation
+        threats.emplace_back(startPos, velocity, Vec2{0.0, 0.0}, Constants::THREAT_SIZE);
     }
+    totalSpawned+=count;
+    std::cout << "WAVE LAUNCHED WITH : " << count << " THREATS!" << std::endl;
+    
 }

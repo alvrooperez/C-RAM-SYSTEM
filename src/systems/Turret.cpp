@@ -12,6 +12,9 @@ void Turret::setAngle(double angle) {
 void Turret::update(double dt) {
     timeSinceLastShot += dt;
     double diff = desiredAngle - currentAngle;
+    while (diff > 180.0)  diff -= 360.0;
+    while (diff < -180.0) diff += 360.0;
+
     if (std::abs(diff) < 0.2) {
         lockOn = true;
     } else {
@@ -24,6 +27,8 @@ void Turret::update(double dt) {
             currentAngle -= maxTurnRate * dt;
         }
     }
+    if (currentAngle > 180.0)  currentAngle -= 360.0;
+    if (currentAngle < -180.0) currentAngle += 360.0;
 }
 
 Bullet Turret::fire() {

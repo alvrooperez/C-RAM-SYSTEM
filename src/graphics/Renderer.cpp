@@ -8,6 +8,7 @@ using namespace Constants;
 
 Renderer::Renderer(int width, int height)
     : screenWidth(width), screenHeight(height) {
+    SetTraceLogLevel(LOG_WARNING);
     InitWindow(screenWidth, screenHeight, "C-RAM Defense System - Tactical Radar");
     SetTargetFPS(60);
 }
@@ -17,7 +18,7 @@ Renderer::~Renderer() {
 }
 
 bool Renderer::shouldClose() const {
-    return WindowShouldClose();
+    return WindowShouldClose() || IsKeyPressed(KEY_Q);;
 }
 
 void Renderer::render(const World& world) {
