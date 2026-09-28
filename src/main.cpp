@@ -12,8 +12,11 @@ int main() {
     const double timeScale = 10.0;
     while (!renderer.shouldClose()) {
         // Si el objetivo sigue vivo, avanzamos la física
+        
         if (world.isRunning()) {
+            
             world.update(dt*timeScale);
+            
         }
 
         // Renderizamos siempre el estado actual a 60 FPS

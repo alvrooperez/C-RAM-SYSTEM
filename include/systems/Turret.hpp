@@ -1,6 +1,7 @@
 #pragma once
 #include "Vec2.hpp"
 #include "Bullet.hpp"
+#include "Constants.hpp"
 
 class Turret {
     Vec2 position {10000.0, 5000.0};
@@ -8,7 +9,7 @@ class Turret {
     double desiredAngle {0.0};
     double maxTurnRate {60.0};
     bool lockOn {false};
-    double fireRate {1.0};
+    double fireRate {Constants::FIRE_RATE};
     double timeSinceLastShot {0.0};
     bool fireEnabled {false};
 

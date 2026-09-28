@@ -8,7 +8,7 @@
 class World {
     Radar radar;
     Turret turret;
-    Threat threat;
+    std::vector<Threat> threats;
     std::vector<Bullet> bullets;
     bool running {true};
 
@@ -17,12 +17,14 @@ public:
     // Getters
     const Turret& getTurret() const { return turret; }
     const Radar& getRadar() const { return radar; }
-    const Threat& getTarget() const { return threat; }
+    const std::vector<Threat>& getThreats() const { return threats; }
     const std::vector<Bullet>& getBullets() const { return bullets; }
 
-    bool isRunning() const { return running && threat.isActive(); }
+    bool isRunning() const { return running && !getThreats().empty(); }
     void update (double dt);
     void checkCollisions();
-
+    void fire(RadarPing ping, double dt);
+    void cleanup();
+    void spawnWave();
 
 };

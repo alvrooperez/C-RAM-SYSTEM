@@ -30,9 +30,11 @@ set(SOURCES
     src/entities/Threat.cpp
     src/entities/Bullet.cpp
     src/systems/Radar.cpp
+    src/systems/FireControl.cpp
     src/systems/Turret.cpp
     src/systems/World.cpp
     src/graphics/Renderer.cpp
+    
 )
 
 add_executable(SistemaCram ${SOURCES})

@@ -28,6 +28,10 @@ struct Vec2 {
     Vec2 operator*(const double k) const {
         return {k * x, k * y};
     }
+    // Multiplier dot product
+     double operator*(const Vec2 &other) const {
+        return other.x * x + other.y * y;
+    }
 
     double module() const {
         return std::sqrt(x * x + y * y);
@@ -44,5 +48,11 @@ struct Vec2 {
     static Vec2 fromPolar(double angleDegrees, double length) {
         double rad = angleDegrees * (std::numbers::pi / 180.0);
         return { length * std::cos(rad), length * std::sin(rad) };
+    }
+
+    Vec2 normalized() const {
+        double len = module();
+        if (len == 0.0) return {0.0, 0.0};
+        return { x / len, y / len };
     }
 };

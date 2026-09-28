@@ -1,5 +1,9 @@
 #pragma once
 #include "core/Vec2.hpp"
+#include <utility>
+#include "Radar.hpp"
+#include "Constants.hpp"
+#include <optional>
 
 struct FireSolution {
     bool hasSolution {false};
@@ -9,6 +13,9 @@ struct FireSolution {
 };
 
 class FireControl {
+    double bulletSpeed=Constants::INTERCEPTOR_VMAX;
 public:
-    FireSolution calculateIntercept(Vec2 gunPos, double bulletSpeed, Vec2 targetPos, Vec2 targetVel) const;
+    FireSolution calculateIntercept(const RadarPing& ping,Vec2 gunPos) const;
+    
 };
+std::optional<double> sol2equation(double a, double b, double c);

@@ -4,13 +4,15 @@
 
 RadarPing Radar::scan(const Entity &E) const {
     RadarPing detec;
-    detec.relPos = E.getPosition() - position;
-    detec.distance = detec.relPos.module();
+    detec.targetPos = E.getPosition();
+    Vec2 relPos = detec.targetPos - position;
+    detec.distance = relPos.module();
 
     if (detec.distance > maxRange) {
         return detec;
     }
     detec.detected = true;
-    detec.angleDegrees = detec.relPos.angle();
+    
+    detec.targetVel=E.getSpeed();
     return detec;
 }

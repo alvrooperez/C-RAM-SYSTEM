@@ -5,9 +5,9 @@
 
 struct RadarPing {
     bool detected {false};
-    Vec2 relPos {0.0, 0.0}; 
-    double distance {0.0};            
-    double angleDegrees {0.0};         
+    Vec2 targetPos {0.0, 0.0}; 
+    Vec2 targetVel {0.0, 0.0};
+    double distance {0.0};                    
 };
 
 class Radar {
@@ -17,4 +17,5 @@ class Radar {
 public:
     Radar() = default;
     RadarPing scan(const Entity &E) const;
+    Vec2 getPosition(){return position;};
 };

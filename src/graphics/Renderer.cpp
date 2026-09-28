@@ -37,9 +37,11 @@ void Renderer::render(const World& world) {
     DrawLineEx(baseScreen, barrelEnd, 3.0f, SKYBLUE);
 
     // Threat
-    if (world.getTarget().isActive()) {
-        ::Vector2 threatScreen = toScreen(world.getTarget().getPosition());
-        DrawCircle(threatScreen.x, threatScreen.y, 6, RED);
+    for (const auto& threat: world.getThreats()){
+        if (threat.isActive()) {
+            ::Vector2 threatScreen = toScreen(threat.getPosition());
+            DrawCircle(threatScreen.x, threatScreen.y, 6, RED);
+        }
     }
     // Bullets
 
