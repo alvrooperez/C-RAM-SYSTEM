@@ -9,14 +9,13 @@ Real-time autonomous air-defense system simulation inspired by Phalanx CIWS and 
 
 ---
 
-## 🎯 Tactical Radar Display
+## Tactical Radar Display
 
-<!-- Add your gameplay/simulation GIF or screenshot here: assets/preview.gif -->
 ![C-RAM Tactical Radar Simulation](assets/preview.gif)
 
 ---
 
-## ⚡ Key Features
+## Key Features
 
 - **Real-Time Ballistic Interception (Lead Pursuit):** Solves 2nd-degree intercept kinematics in real-time, computing future impact coordinates and turret lead azimuth rather than chasing stale sensor coordinates.
 - **Modular Multi-Tier Architecture:** Clean separation of concerns across physical domains:
@@ -30,28 +29,7 @@ Real-time autonomous air-defense system simulation inspired by Phalanx CIWS and 
 
 ---
 
-## 🛠️ Architecture Overview
-
-```text
-       ┌───────────────┐
-       │     World     │ <────── Coordinates Simulation State
-       └───────┬───────┘
-               │
-    ┌──────────┼──────────┬──────────────┐
-    ▼          ▼          ▼              ▼
-┌───────┐ ┌─────────┐ ┌───────┐ ┌────────────────┐
-│ Radar │ │ Threat  │ │Turret │ │  FireControl   │
-└───────┘ └─────────┘ └───┬───┘ └────────────────┘
-                          │ (Shoots)
-                          ▼
-                     ┌─────────┐
-                     │ Bullet  │
-                     └─────────┘
-```
-
----
-
-## 🚀 How to Build & Run
+## How to Build & Run
 
 ### Prerequisites
 - C++20 compliant compiler (GCC 13+, Clang 16+, or MSVC 2022)
@@ -75,7 +53,7 @@ cmake --build build
 ./build/SistemaCram
 ```
 
-*On Windows PowerShell:*
+On Windows PowerShell:
 ```powershell
 .\build\SistemaCram.exe
 # Or use the included helper script:
@@ -84,11 +62,11 @@ cmake --build build
 
 ---
 
-## 🎮 Controls
+## Controls
 
 - **ESC / Q**: Close tactical radar display and view final mission report.
 
 ---
 
-## 📄 License
+## License
 Distributed under the MIT License. See `LICENSE` for details.
