@@ -14,8 +14,6 @@ Real-time autonomous air-defense system simulation inspired by Phalanx CIWS and 
 <!-- Add your gameplay/simulation GIF or screenshot here: assets/preview.gif -->
 ![C-RAM Tactical Radar Simulation](assets/preview.gif)
 
-> *Tip: You can capture a 5-second preview using Windows Game Bar (`Win + Alt + R`) or Snipping Tool and place it in `assets/preview.gif`.*
-
 ---
 
 ## ⚡ Key Features
