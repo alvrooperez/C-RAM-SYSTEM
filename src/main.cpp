@@ -26,7 +26,7 @@ int main() {
     }
 
     std::cout << "\n--- MISSION REPORT ---" << std::endl;
-    std::cout << "Threats: " << world.getTotalDestroyed() << " / " << world.getTotalSpawned() << " Neutralized" << std::endl;
+    std::cout << "Threats: " << world.getTotalDestroyed() << " / " << world.getTotalDestroyed()+ world.getHits() << " Neutralized " <<  "Base Hits : " <<world.getHits()<< std::endl;
     std::cout << "Interception Rate: " << std::fixed << std::setprecision(1)
               << (world.getTotalSpawned() > 0 ? (100.0 * world.getTotalDestroyed() / world.getTotalSpawned()) : 0.0)
               << "%" << std::endl;

@@ -1,7 +1,8 @@
 #pragma once
 #include "Vec2.hpp"
 #include "Constants.hpp"
-#include "Entity.hpp"
+#include "Threat.hpp"
+#include <vector>
 
 struct RadarPing {
     bool detected {false};
@@ -16,6 +17,6 @@ class Radar {
 
 public:
     Radar() = default;
-    RadarPing scan(const Entity &E) const;
+    std::vector<RadarPing> scan(const std::vector<Threat> &E) const;
     Vec2 getPosition(){return position;};
 };

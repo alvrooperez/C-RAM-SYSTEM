@@ -17,8 +17,8 @@ public:
     Turret() = default;
     void setAngle(double angle);
     void update(double dt);
-    bool canFire() const {
-        return lockOn && (timeSinceLastShot >= (1.0 / fireRate));
+    bool canFire(double distance) const {
+        return lockOn && (timeSinceLastShot >= (1.0 / fireRate) && distance<Constants::MAX_ENGAGEMENT_RANGE);
     }
     Bullet fire();
     Vec2 getPosition() const { return position; }

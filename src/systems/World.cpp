@@ -32,13 +32,14 @@ void World::update(double dt){
             bullet.update(dt);
         }
         // radar
-        for (auto& threat : threats){
-            if (threat.isActive()){
-                RadarPing ping=radar.scan(threat);
-                fire(ping,dt);
-                break;
-            }
+        std::vector<RadarPing> pings=radar.scan(threats);
+        std::optional<RadarPing> target=fireControl.selectTarget(pings,BASE_POSITION);
+        if (target.has_value()){
+            fire(*target,dt);
+        }else {
+            turret.update(dt);
         }
+        
         
 
         
@@ -61,19 +62,26 @@ void World::checkCollisions(){
                 //running=false;
                 }
         }
+        if (threat.isActive() ){
+            double dist=(Constants::BASE_POSITION-threat.getPosition()).moduleSquared();
+            if (dist<(Constants::BASE_RADIUS*Constants::BASE_RADIUS)){
+                threat.deactivated();
+                baseHits++;
+            }
+        }
     }
 }
 
 void World::fire(RadarPing ping,double dt){
     //FireControl
-        FireControl fire;
+        
         if (ping.detected){
-        FireSolution sol=fire.calculateIntercept(ping,radar.getPosition());
+        FireSolution sol=fireControl.calculateIntercept(ping,radar.getPosition());
             if (sol.hasSolution){
                 turret.setAngle(sol.interceptAngle);
                 turret.update(dt);
 
-                if (turret.canFire()){
+                if (turret.canFire(sol.distance)){
                     bullets.push_back(turret.fire());
                     std::cout << std::fixed << std::setprecision(2);
                     std::cout << "Fire! Bullet angle: ,"<< sol.interceptAngle << std::endl;

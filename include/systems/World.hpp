@@ -3,17 +3,20 @@
 #include "Turret.hpp"
 #include "Bullet.hpp"
 #include "Threat.hpp"
+#include "FireControl.hpp"
 #include <vector>
 
 class World {
     Radar radar;
     Turret turret;
+    FireControl fireControl;
     std::vector<Threat> threats;
     std::vector<Bullet> bullets;
     bool running {true};
 
     int totalSpawned {0};
     int totalDestroyed {0};
+    int baseHits{0};
 
 public:
     World();
@@ -26,6 +29,7 @@ public:
     bool isRunning() const { return running && !getThreats().empty(); }
     int getTotalSpawned() const {return totalSpawned;};
     int getTotalDestroyed() const {return totalDestroyed;};
+    int getHits() const {return baseHits;};
 
     void update (double dt);
     void checkCollisions();

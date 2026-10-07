@@ -24,6 +24,11 @@ bool Renderer::shouldClose() const {
 void Renderer::render(const World& world) {
     BeginDrawing();
     ClearBackground(BLACK);
+    // Base
+    ::Vector2 baseZone = toScreen(BASE_POSITION);
+    float baseZonePixelRadius = (BASE_RADIUS / (X_MAX - X_MIN)) * screenWidth;
+    DrawCircle(baseZone.x, baseZone.y, baseZonePixelRadius, Fade(BLUE, 0.15f));
+    DrawCircleLines(baseZone.x, baseZone.y, baseZonePixelRadius, DARKBLUE);
     // Turret
     ::Vector2 baseScreen = toScreen(world.getTurret().getPosition());
     DrawCircle(baseScreen.x,baseScreen.y,8,BLUE);

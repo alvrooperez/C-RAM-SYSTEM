@@ -1,18 +1,27 @@
 #include "Radar.hpp"
 #include "Vec2.hpp"
-#include "Entity.hpp"
+#include "Threat.hpp"
 
-RadarPing Radar::scan(const Entity &E) const {
-    RadarPing detec;
-    detec.targetPos = E.getPosition();
-    Vec2 relPos = detec.targetPos - position;
-    detec.distance = relPos.module();
-
-    if (detec.distance > maxRange) {
-        return detec;
+std::vector<RadarPing> Radar::scan(const std::vector<Threat> &V) const {
+    std::vector<RadarPing> detections;
+    detections.reserve(V.size());
+    for (const auto &threat:V){
+        RadarPing detec;
+        
+        detec.targetPos = threat.getPosition();
+        Vec2 relPos = detec.targetPos - position;
+        
+        double distSq = relPos.moduleSquared();
+        if (distSq > maxRange*maxRange) {
+            
+            continue;
+        }
+        detec.distance = relPos.module();
+        detec.detected = true;
+        
+        detec.targetVel=threat.getSpeed();
+        detections.push_back(detec);
     }
-    detec.detected = true;
+    return detections;
     
-    detec.targetVel=E.getSpeed();
-    return detec;
 }

@@ -17,6 +17,7 @@ namespace Constants {
     inline constexpr Vec2 INTERCEPTOR_SIZE {3.0, 0.5};
     inline constexpr double FIRE_RATE = 1; 
     inline constexpr Vec2 THREAT_SIZE {20.0,5.0};
+    inline constexpr double MAX_ENGAGEMENT_RANGE= 6000.0;
 
     // Limits
     inline constexpr double Y_MAX = 10000.0;
@@ -35,4 +36,7 @@ namespace Constants {
     inline constexpr double TARGET_Y_MAX = 7000.0;
     inline constexpr double THREAT_MIN_SPEED = 60.0;
     inline constexpr double THREAT_MAX_SPEED = 250.0;
+    // Zone
+    inline constexpr double BASE_RADIUS= 2000.0;
+    inline constexpr Vec2 BASE_POSITION {10000.0, 5000.0};
 }
