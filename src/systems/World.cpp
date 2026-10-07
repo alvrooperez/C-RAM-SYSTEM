@@ -20,7 +20,8 @@ World::World()
 }
 
 void World::update(double dt){
-
+    //Take the mutex
+    std::lock_guard<std::mutex> lock(worldMutex);
     // Moving update
         for (auto& threat : threats){
             if (threat.isActive()){
@@ -127,4 +128,24 @@ void World::spawnWave(){
     totalSpawned+=count;
     std::cout << "WAVE LAUNCHED WITH : " << count << " THREATS!" << std::endl;
     
+}
+
+WorldSnapshot World::getSnapshot() {
+    std::lock_guard<std::mutex> lock(worldMutex); // Small block
+
+    WorldSnapshot snap;
+    snap.turretPos = turret.getPosition();
+    snap.turretAngle = turret.getCurrentAngle();
+
+    snap.threatPositions.reserve(threats.size());
+    for (const auto& t : threats) {
+        if (t.isActive()) snap.threatPositions.push_back(t.getPosition());
+    }
+
+    snap.bulletPositions.reserve(bullets.size());
+    for (const auto& b : bullets) {
+        if (b.isActive()) snap.bulletPositions.push_back(b.getPosition());
+    }
+
+    return snap; // Frozen copy
 }

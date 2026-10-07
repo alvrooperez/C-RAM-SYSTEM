@@ -5,6 +5,15 @@
 #include "Threat.hpp"
 #include "FireControl.hpp"
 #include <vector>
+#include <mutex>
+#include "Vec2.hpp"
+
+struct WorldSnapshot {
+    Vec2 turretPos;
+    double turretAngle {0.0};
+    std::vector<Vec2> threatPositions;
+    std::vector<Vec2> bulletPositions;
+};
 
 class World {
     Radar radar;
@@ -17,6 +26,8 @@ class World {
     int totalSpawned {0};
     int totalDestroyed {0};
     int baseHits{0};
+    //Mutex
+    std::mutex worldMutex;
 
 public:
     World();
@@ -37,5 +48,7 @@ public:
 
     void cleanup();
     void spawnWave();
+
+    WorldSnapshot getSnapshot();
 
 };

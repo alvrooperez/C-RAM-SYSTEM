@@ -11,6 +11,6 @@ public:
     ~Renderer();
 
     bool shouldClose() const;
-    void render(const World& world);
+    void render(const WorldSnapshot& snapshot);
     ::Vector2 toScreen(Vec2 worldPos) const;
 };

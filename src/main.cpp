@@ -1,29 +1,38 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "World.hpp"
 #include "Renderer.hpp"
 #include "Constants.hpp"
 #include <iomanip>
 
 int main() {
-    std::cout << "Starting C-RAM Simulation..." << std::endl;
+
+    std::cout << "Starting Concurrent C-RAM Simulation..." << std::endl;
 
     World world;
     Renderer renderer(900, 900);
 
-    const double dt = 0.016; // 60 Hz aprox. para coincidir con la pantalla
-    const double timeScale = Constants::TIME_SCALE;
-    while (!renderer.shouldClose()) {
-        // Si el objetivo sigue vivo, avanzamos la física
-        
-        if (world.isRunning()) {
-            
-            world.update(dt*timeScale);
-            
-        }
+    // First Threat
+    std::jthread simThread([&world](std::stop_token stopToken) {
+        using namespace std::chrono_literals;
+        const double dt = 0.008; 
+        const double timeScale = Constants::TIME_SCALE;
 
-        // Renderizamos siempre el estado actual a 60 FPS
-        renderer.render(world);
+        while (!stopToken.stop_requested() && world.isRunning()) {
+            world.update(dt * timeScale);
+            std::this_thread::sleep_for(8ms); 
+        }
+    });
+
+    // Main threat
+    while (!renderer.shouldClose()) {
+        WorldSnapshot snapshot = world.getSnapshot();
+        renderer.render(snapshot); 
     }
+
+    // 3. APAGADO LIMPIO
+    simThread.request_stop();
 
     std::cout << "\n--- MISSION REPORT ---" << std::endl;
     std::cout << "Threats: " << world.getTotalDestroyed() << " / " << world.getTotalDestroyed()+ world.getHits() << " Neutralized " <<  "Base Hits : " <<world.getHits()<< std::endl;

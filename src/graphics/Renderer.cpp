@@ -21,18 +21,16 @@ bool Renderer::shouldClose() const {
     return WindowShouldClose() || IsKeyPressed(KEY_Q);;
 }
 
-void Renderer::render(const World& world) {
+void Renderer::render(const WorldSnapshot& snapshot) {
     BeginDrawing();
     ClearBackground(BLACK);
-    // Base
     ::Vector2 baseZone = toScreen(BASE_POSITION);
     float baseZonePixelRadius = (BASE_RADIUS / (X_MAX - X_MIN)) * screenWidth;
     DrawCircle(baseZone.x, baseZone.y, baseZonePixelRadius, Fade(BLUE, 0.15f));
     DrawCircleLines(baseZone.x, baseZone.y, baseZonePixelRadius, DARKBLUE);
-    // Turret
-    ::Vector2 baseScreen = toScreen(world.getTurret().getPosition());
-    DrawCircle(baseScreen.x,baseScreen.y,8,BLUE);
-    double angleRad = world.getTurret().getCurrentAngle() * (std::numbers::pi / 180.0);
+    ::Vector2 baseScreen = toScreen(snapshot.turretPos);
+    DrawCircle(baseScreen.x, baseScreen.y, 8, BLUE);
+    double angleRad = snapshot.turretAngle * (std::numbers::pi / 180.0);
     float barrelLength = 25.0f;
 
     ::Vector2 barrelEnd = {
@@ -42,20 +40,14 @@ void Renderer::render(const World& world) {
 
     DrawLineEx(baseScreen, barrelEnd, 3.0f, SKYBLUE);
 
-    // Threat
-    for (const auto& threat: world.getThreats()){
-        if (threat.isActive()) {
-            ::Vector2 threatScreen = toScreen(threat.getPosition());
-            DrawCircle(threatScreen.x, threatScreen.y, 6, RED);
-        }
+    for (const auto& pos : snapshot.threatPositions) {
+        ::Vector2 threatScreen = toScreen(pos);
+        DrawCircle(threatScreen.x, threatScreen.y, 6, RED);
     }
-    // Bullets
 
-    for (const auto& bullet : world.getBullets()) {
-        if (bullet.isActive()) {
-            ::Vector2 bulletScreen = toScreen(bullet.getPosition());
-            DrawCircle(bulletScreen.x, bulletScreen.y, 3, YELLOW);
-        }
+    for (const auto& pos : snapshot.bulletPositions) {
+        ::Vector2 bulletScreen = toScreen(pos);
+        DrawCircle(bulletScreen.x, bulletScreen.y, 3, YELLOW);
     }
 
     //Radar
