@@ -2,7 +2,7 @@
 #include "Vec2.hpp"
 
 namespace Constants {
-    inline constexpr int TIME_SCALE = 5;
+    inline constexpr int TIME_SCALE = 10;
 
     inline constexpr double GRAVITY = 9.81;        // m/s^2
     inline constexpr double RADAR_RANGE = 8000.0; // meters 10k

@@ -31,7 +31,7 @@ int main() {
         renderer.render(snapshot); 
     }
 
-    // 3. APAGADO LIMPIO
+    // End
     simThread.request_stop();
 
     std::cout << "\n--- MISSION REPORT ---" << std::endl;
